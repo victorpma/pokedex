@@ -26,6 +26,9 @@ dependencies:
   mobx: ^1.1.1
   flutter_mobx: ^1.1.0
   http: ^0.12.1
+  flutter_staggered_animations: ^0.1.2
+  cached_network_image: ^2.2.0
+  sprintf: "^4.0.0"
 
 dev_dependencies:
   flutter_test:
