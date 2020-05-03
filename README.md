@@ -6,7 +6,7 @@
 
 ## :muscle: Functionalities
 
-## Getting Start
+## :coffee: Getting Start
 
 ## :rocket: Built With
 
