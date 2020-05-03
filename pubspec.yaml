@@ -29,6 +29,8 @@ dependencies:
   flutter_staggered_animations: ^0.1.2
   cached_network_image: ^2.2.0
   sprintf: "^4.0.0"
+  sliding_sheet: ^0.3.5
+  get_it: ^4.0.2
 
 dev_dependencies:
   flutter_test:
