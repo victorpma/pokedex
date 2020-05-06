@@ -24,11 +24,26 @@ class PokemonItem extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Opacity(
-                opacity: 0.1,
-                child: Image.asset(ConstsApp.whitePokeball),
-              ),
+                padding: const EdgeInsets.all(10.0),
+                child: Hero(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Opacity(
+                      opacity: 0.1,
+                      child: Image.asset(
+                        ConstsApp.whitePokeball,
+                        height: 80,
+                        width: 80,
+                      ),
+                    ),
+                  ),
+                  tag: index.toString(),
+                )),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: _getImagePokemon(number)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -49,12 +64,6 @@ class PokemonItem extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: _getImagePokemon(number)),
-            ),
           ],
         ),
       ),
@@ -62,8 +71,8 @@ class PokemonItem extends StatelessWidget {
   }
 
   _getImagePokemon(String num) => CachedNetworkImage(
-      height: 100,
-      width: 100,
+      height: 80,
+      width: 80,
       placeholder: (context, url) => new Container(color: Colors.transparent),
       imageUrl: sprintf(ConstsApi.urlPokeImage, [num]));
 
