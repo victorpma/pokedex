@@ -41,9 +41,12 @@ class PokemonItem extends StatelessWidget {
                 )),
             Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: _getImagePokemon(number)),
+              child: Hero(
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: _getImagePokemon(number)),
+                tag: number.toString(),
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -71,6 +74,7 @@ class PokemonItem extends StatelessWidget {
   }
 
   _getImagePokemon(String num) => CachedNetworkImage(
+      alignment: Alignment.bottomRight,
       height: 80,
       width: 80,
       placeholder: (context, url) => new Container(color: Colors.transparent),

@@ -136,20 +136,25 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                         ? 0
                                         : 100),
                                     curve: Curves.bounceInOut,
-                                    child: CachedNetworkImage(
-                                        height: 250,
-                                        width: 250,
-                                        placeholder: (context, url) =>
-                                            new Container(
-                                                color: Colors.transparent),
-                                        color: count ==
-                                                pokemonDetailController
-                                                    .currentIndex
-                                            ? null
-                                            : Colors.black.withOpacity(0.2),
-                                        imageUrl: sprintf(
-                                            ConstsApi.urlPokeImage,
-                                            [pokemonItem.num])),
+                                    child: Hero(
+                                      child: CachedNetworkImage(
+                                          height: 250,
+                                          width: 250,
+                                          placeholder: (context, url) =>
+                                              new Container(
+                                                  color: Colors.transparent),
+                                          color: count ==
+                                                  pokemonDetailController
+                                                      .currentIndex
+                                              ? null
+                                              : Colors.black.withOpacity(0.2),
+                                          imageUrl: sprintf(
+                                              ConstsApi.urlPokeImage,
+                                              [pokemonItem.num])),
+                                      tag: pokemonDetailController
+                                          .currentPokemon.num
+                                          .toString(),
+                                    ),
                                   ))
                         ],
                       );
