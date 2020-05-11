@@ -13,9 +13,16 @@ abstract class _PokemonDetailControllerBase with Store {
   @observable
   Color currentColor = Colors.transparent;
 
+  @observable
+  int currentIndex;
+
   @action
-  setCurrentPokemon(Pokemon newPokemon) => currentPokemon = newPokemon;
+  setCurrentPokemon(Pokemon newCurrentPokemon) =>
+      currentPokemon = newCurrentPokemon;
 
   @action
   setCurrentColor(Color newCurrentColor) => currentColor = newCurrentColor;
+
+  @action
+  setCurrentIndex(int newCurrentIndex) => currentIndex = newCurrentIndex;
 }

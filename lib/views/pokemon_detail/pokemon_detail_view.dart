@@ -38,7 +38,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
 
     animationRotation = MultiTween<DefaultAnimationProperties>()
       ..add(DefaultAnimationProperties.rotation, Tween(begin: 0.0, end: 6.0),
-          Duration(seconds: 5));
+          Duration(seconds: 5), Curves.linear);
   }
 
   @override
@@ -98,6 +98,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                           ConstsApp.getColorType(
                               type: homeController
                                   .pokeApi.pokemons[index].type[0]));
+                      pokemonDetailController.setCurrentIndex(index);
                     },
                     itemBuilder: (context, int count) {
                       var pokemonItem = homeController.pokeApi.pokemons[count];
@@ -117,8 +118,8 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                       opacity: 0.1,
                                       child: Image.asset(
                                         ConstsApp.whitePokeball,
-                                        height: 200,
-                                        width: 200,
+                                        height: 250,
+                                        width: 250,
                                       ),
                                     ),
                                     tag: count.toString(),
@@ -127,13 +128,29 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                       DefaultAnimationProperties.rotation));
                             },
                           ),
-                          CachedNetworkImage(
-                              height: 200,
-                              width: 200,
-                              placeholder: (context, url) =>
-                                  new Container(color: Colors.transparent),
-                              imageUrl: sprintf(
-                                  ConstsApi.urlPokeImage, [pokemonItem.num]))
+                          Observer(
+                              builder: (context) => AnimatedPadding(
+                                    duration: Duration(milliseconds: 250),
+                                    padding: EdgeInsets.all(count ==
+                                            pokemonDetailController.currentIndex
+                                        ? 0
+                                        : 100),
+                                    curve: Curves.bounceInOut,
+                                    child: CachedNetworkImage(
+                                        height: 250,
+                                        width: 250,
+                                        placeholder: (context, url) =>
+                                            new Container(
+                                                color: Colors.transparent),
+                                        color: count ==
+                                                pokemonDetailController
+                                                    .currentIndex
+                                            ? null
+                                            : Colors.black.withOpacity(0.2),
+                                        imageUrl: sprintf(
+                                            ConstsApi.urlPokeImage,
+                                            [pokemonItem.num])),
+                                  ))
                         ],
                       );
                     }),

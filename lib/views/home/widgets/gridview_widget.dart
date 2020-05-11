@@ -43,6 +43,8 @@ class GridViewWidget extends StatelessWidget {
                                 onTap: () {
                                   pokemonDetailController.setCurrentPokemon(
                                       homeController.pokeApi.pokemons[index]);
+                                  pokemonDetailController
+                                      .setCurrentIndex(index);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

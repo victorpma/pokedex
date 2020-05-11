@@ -45,15 +45,33 @@ mixin _$PokemonDetailController on _PokemonDetailControllerBase, Store {
     }, _$currentColorAtom, name: '${_$currentColorAtom.name}_set');
   }
 
+  final _$currentIndexAtom =
+      Atom(name: '_PokemonDetailControllerBase.currentIndex');
+
+  @override
+  int get currentIndex {
+    _$currentIndexAtom.context.enforceReadPolicy(_$currentIndexAtom);
+    _$currentIndexAtom.reportObserved();
+    return super.currentIndex;
+  }
+
+  @override
+  set currentIndex(int value) {
+    _$currentIndexAtom.context.conditionallyRunInAction(() {
+      super.currentIndex = value;
+      _$currentIndexAtom.reportChanged();
+    }, _$currentIndexAtom, name: '${_$currentIndexAtom.name}_set');
+  }
+
   final _$_PokemonDetailControllerBaseActionController =
       ActionController(name: '_PokemonDetailControllerBase');
 
   @override
-  dynamic setCurrentPokemon(Pokemon newPokemon) {
+  dynamic setCurrentPokemon(Pokemon newCurrentPokemon) {
     final _$actionInfo =
         _$_PokemonDetailControllerBaseActionController.startAction();
     try {
-      return super.setCurrentPokemon(newPokemon);
+      return super.setCurrentPokemon(newCurrentPokemon);
     } finally {
       _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -71,9 +89,20 @@ mixin _$PokemonDetailController on _PokemonDetailControllerBase, Store {
   }
 
   @override
+  dynamic setCurrentIndex(int newCurrentIndex) {
+    final _$actionInfo =
+        _$_PokemonDetailControllerBaseActionController.startAction();
+    try {
+      return super.setCurrentIndex(newCurrentIndex);
+    } finally {
+      _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'currentPokemon: ${currentPokemon.toString()},currentColor: ${currentColor.toString()}';
+        'currentPokemon: ${currentPokemon.toString()},currentColor: ${currentColor.toString()},currentIndex: ${currentIndex.toString()}';
     return '{$string}';
   }
 }
