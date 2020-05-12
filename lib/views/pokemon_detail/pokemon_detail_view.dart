@@ -20,25 +20,43 @@ class PokemonDetailView extends StatefulWidget {
   _PokemonDetailViewState createState() => _PokemonDetailViewState();
 }
 
-HomeController homeController;
-PokemonDetailController pokemonDetailController;
-PageController pageController;
-MultiTween<DefaultAnimationProperties> animationRotation;
+HomeController _homeController;
+PokemonDetailController _pokemonDetailController;
+PageController _pageController;
+MultiTween<DefaultAnimationProperties> _animationRotation;
+double _progress;
+double _multiple;
+double _opacity;
+double _opacityTitle;
 
 class _PokemonDetailViewState extends State<PokemonDetailView> {
   @override
   void initState() {
     super.initState();
-    homeController = GetIt.instance<HomeController>();
-    pokemonDetailController = GetIt.instance<PokemonDetailController>();
+    _homeController = GetIt.instance<HomeController>();
+    _pokemonDetailController = GetIt.instance<PokemonDetailController>();
 
-    pageController = PageController(initialPage: widget.index);
-    pokemonDetailController.setCurrentColor(ConstsApp.getColorType(
-        type: pokemonDetailController.currentPokemon.type[0]));
+    _pageController = PageController(initialPage: widget.index);
+    _pokemonDetailController.setCurrentColor(ConstsApp.getColorType(
+        type: _pokemonDetailController.currentPokemon.type[0]));
 
-    animationRotation = MultiTween<DefaultAnimationProperties>()
+    _animationRotation = MultiTween<DefaultAnimationProperties>()
       ..add(DefaultAnimationProperties.rotation, Tween(begin: 0.0, end: 6.0),
           Duration(seconds: 5), Curves.linear);
+
+    _progress = 0;
+    _multiple = 1;
+    _opacity = 1;
+    _opacityTitle = 0;
+  }
+
+  double interval(double lower, double upper, double progress) {
+    assert(lower < upper);
+
+    if (progress > upper) return 1.0;
+    if (progress < lower) return 0.0;
+
+    return ((progress - lower) / (upper - lower)).clamp(0.0, 1.0);
   }
 
   @override
@@ -52,8 +70,11 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
           child: Observer(
             builder: (_) {
               return AppBar(
-                backgroundColor: pokemonDetailController.currentColor,
+                backgroundColor: _pokemonDetailController.currentColor,
                 elevation: 0.0,
+                title: Opacity(
+                    opacity: _opacityTitle,
+                    child: Text(_pokemonDetailController.currentPokemon.name)),
                 actions: <Widget>[
                   IconButton(
                       icon: Icon(Icons.favorite_border), onPressed: () {})
@@ -64,7 +85,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
       body: Stack(
         children: <Widget>[
           Observer(builder: (_) {
-            return Container(color: pokemonDetailController.currentColor);
+            return Container(color: _pokemonDetailController.currentColor);
           }),
           Container(
             height: heightScreen / 3,
@@ -72,6 +93,14 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
           SlidingSheet(
             elevation: 0,
             cornerRadius: 30,
+            listener: (state) => {
+              setState(() {
+                _progress = state.progress;
+                _multiple = 1 - interval(0.0, 0.7, _progress);
+                _opacity = _multiple;
+                _opacityTitle = interval(0.55, 0.8, _progress);
+              })
+            },
             snapSpec: const SnapSpec(
               snap: true,
               snappings: [0.7, 1.0],
@@ -83,83 +112,89 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
               );
             },
           ),
-          Positioned(
-              top: (heightScreen / 3) - 180,
-              child: Container(
-                height: 250,
-                width: widthScreen,
-                child: PageView.builder(
-                    controller: pageController,
-                    itemCount: homeController.pokeApi.pokemons.length,
-                    onPageChanged: (index) {
-                      pokemonDetailController.setCurrentPokemon(
-                          homeController.pokeApi.pokemons[index]);
-                      pokemonDetailController.setCurrentColor(
-                          ConstsApp.getColorType(
-                              type: homeController
-                                  .pokeApi.pokemons[index].type[0]));
-                      pokemonDetailController.setCurrentIndex(index);
-                    },
-                    itemBuilder: (context, int count) {
-                      var pokemonItem = homeController.pokeApi.pokemons[count];
+          Opacity(
+            opacity: _opacity,
+            child: Padding(
+                padding: EdgeInsets.only(
+                    top: _opacityTitle == 1 ? 1000 : 90 - _progress * 50),
+                child: SizedBox(
+                  height: 200,
+                  width: widthScreen,
+                  child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: _homeController.pokeApi.pokemons.length,
+                      onPageChanged: (index) {
+                        _pokemonDetailController.setCurrentPokemon(
+                            _homeController.pokeApi.pokemons[index]);
+                        _pokemonDetailController.setCurrentColor(
+                            ConstsApp.getColorType(
+                                type: _homeController
+                                    .pokeApi.pokemons[index].type[0]));
+                        _pokemonDetailController.setCurrentIndex(index);
+                      },
+                      itemBuilder: (context, int count) {
+                        var pokemonItem =
+                            _homeController.pokeApi.pokemons[count];
 
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          LoopAnimation<
-                              MultiTweenValues<DefaultAnimationProperties>>(
-                            tween: animationRotation,
-                            duration:
-                                animationRotation.duration, // Use own duration
-                            builder: (context, child, value) {
-                              return Transform.rotate(
-                                  child: Hero(
-                                    child: Opacity(
-                                      opacity: 0.1,
-                                      child: Image.asset(
-                                        ConstsApp.whitePokeball,
-                                        height: 250,
-                                        width: 250,
-                                      ),
-                                    ),
-                                    tag: count.toString(),
-                                  ),
-                                  angle: value.get(
-                                      DefaultAnimationProperties.rotation));
-                            },
-                          ),
-                          Observer(
-                              builder: (context) => AnimatedPadding(
-                                    duration: Duration(milliseconds: 250),
-                                    padding: EdgeInsets.all(count ==
-                                            pokemonDetailController.currentIndex
-                                        ? 0
-                                        : 100),
-                                    curve: Curves.bounceInOut,
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            LoopAnimation<
+                                MultiTweenValues<DefaultAnimationProperties>>(
+                              tween: _animationRotation,
+                              duration: _animationRotation
+                                  .duration, // Use own duration
+                              builder: (context, child, value) {
+                                return Transform.rotate(
                                     child: Hero(
-                                      child: CachedNetworkImage(
+                                      child: Opacity(
+                                        opacity: 0.1,
+                                        child: Image.asset(
+                                          ConstsApp.whitePokeball,
                                           height: 250,
                                           width: 250,
-                                          placeholder: (context, url) =>
-                                              new Container(
-                                                  color: Colors.transparent),
-                                          color: count ==
-                                                  pokemonDetailController
-                                                      .currentIndex
-                                              ? null
-                                              : Colors.black.withOpacity(0.2),
-                                          imageUrl: sprintf(
-                                              ConstsApi.urlPokeImage,
-                                              [pokemonItem.num])),
-                                      tag: pokemonDetailController
-                                          .currentPokemon.num
-                                          .toString(),
+                                        ),
+                                      ),
+                                      tag: count.toString(),
                                     ),
-                                  ))
-                        ],
-                      );
-                    }),
-              ))
+                                    angle: value.get(
+                                        DefaultAnimationProperties.rotation));
+                              },
+                            ),
+                            Observer(
+                                builder: (context) => AnimatedPadding(
+                                      duration: Duration(milliseconds: 250),
+                                      padding: EdgeInsets.all(count ==
+                                              _pokemonDetailController
+                                                  .currentIndex
+                                          ? 0
+                                          : 100),
+                                      curve: Curves.bounceInOut,
+                                      child: Hero(
+                                        child: CachedNetworkImage(
+                                            height: 250,
+                                            width: 250,
+                                            placeholder: (context, url) =>
+                                                new Container(
+                                                    color: Colors.transparent),
+                                            color: count ==
+                                                    _pokemonDetailController
+                                                        .currentIndex
+                                                ? null
+                                                : Colors.black.withOpacity(0.2),
+                                            imageUrl: sprintf(
+                                                ConstsApi.urlPokeImage,
+                                                [pokemonItem.num])),
+                                        tag: _pokemonDetailController
+                                            .currentPokemon.num
+                                            .toString(),
+                                      ),
+                                    ))
+                          ],
+                        );
+                      }),
+                )),
+          )
         ],
       ),
     );
