@@ -11,7 +11,7 @@
 
 ## :coffee: Getting Start
 
-### Pre requisites
+### Prerequisites
 Install [flutter](https://flutter.dev/docs/get-started/install) in your machine.
 
 ### Cloning the repository
