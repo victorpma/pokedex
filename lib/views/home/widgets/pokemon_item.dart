@@ -37,7 +37,7 @@ class PokemonItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  tag: index.toString(),
+                  tag: 'pokeball' + index.toString(),
                 )),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -45,7 +45,7 @@ class PokemonItem extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.bottomRight,
                     child: _getImagePokemon(number)),
-                tag: number.toString(),
+                tag: name,
               ),
             ),
             Column(

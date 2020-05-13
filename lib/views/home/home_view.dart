@@ -36,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
         overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
-              top: -(240 / 4.6),
+              top: heightAppBar - (240 / 3),
               left: widthScreen - (240 / 1.6),
               child: Opacity(
                   opacity: 0.1,

@@ -11,6 +11,8 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:sa_multi_tween/sa_multi_tween.dart';
 
+import 'widgets/background_container_widget.dart';
+
 class PokemonDetailView extends StatefulWidget {
   final int index;
 
@@ -36,7 +38,8 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
     _homeController = GetIt.instance<HomeController>();
     _pokemonDetailController = GetIt.instance<PokemonDetailController>();
 
-    _pageController = PageController(initialPage: widget.index);
+    _pageController =
+        PageController(initialPage: widget.index, viewportFraction: 0.4);
     _pokemonDetailController.setCurrentColor(ConstsApp.getColorType(
         type: _pokemonDetailController.currentPokemon.type[0]));
 
@@ -75,6 +78,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                 title: Opacity(
                     opacity: _opacityTitle,
                     child: Text(_pokemonDetailController.currentPokemon.name)),
+                centerTitle: true,
                 actions: <Widget>[
                   IconButton(
                       icon: Icon(Icons.favorite_border), onPressed: () {})
@@ -84,22 +88,17 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
           )),
       body: Stack(
         children: <Widget>[
-          Observer(builder: (_) {
-            return Container(color: _pokemonDetailController.currentColor);
-          }),
-          Container(
-            height: heightScreen / 3,
-          ),
+          BackgroundContainerWidget(),
           SlidingSheet(
             elevation: 0,
             cornerRadius: 30,
-            listener: (state) => {
+            listener: (state) {
               setState(() {
                 _progress = state.progress;
                 _multiple = 1 - interval(0.0, 0.7, _progress);
                 _opacity = _multiple;
                 _opacityTitle = interval(0.55, 0.8, _progress);
-              })
+              });
             },
             snapSpec: const SnapSpec(
               snap: true,
@@ -118,7 +117,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                 padding: EdgeInsets.only(
                     top: _opacityTitle == 1 ? 1000 : 90 - _progress * 50),
                 child: SizedBox(
-                  height: 200,
+                  height: (heightScreen * 0.7) - 300,
                   width: widthScreen,
                   child: PageView.builder(
                       controller: _pageController,
@@ -148,14 +147,18 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                 return Transform.rotate(
                                     child: Hero(
                                       child: Opacity(
-                                        opacity: 0.1,
+                                        opacity: count ==
+                                                _pokemonDetailController
+                                                    .currentIndex
+                                            ? 0.1
+                                            : 0,
                                         child: Image.asset(
                                           ConstsApp.whitePokeball,
                                           height: 250,
                                           width: 250,
                                         ),
                                       ),
-                                      tag: count.toString(),
+                                      tag: 'pokeball' + count.toString(),
                                     ),
                                     angle: value.get(
                                         DefaultAnimationProperties.rotation));
@@ -168,7 +171,7 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                               _pokemonDetailController
                                                   .currentIndex
                                           ? 0
-                                          : 100),
+                                          : 60),
                                       curve: Curves.bounceInOut,
                                       child: Hero(
                                         child: CachedNetworkImage(
@@ -185,9 +188,12 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
                                             imageUrl: sprintf(
                                                 ConstsApi.urlPokeImage,
                                                 [pokemonItem.num])),
-                                        tag: _pokemonDetailController
-                                            .currentPokemon.num
-                                            .toString(),
+                                        tag: count ==
+                                                _pokemonDetailController
+                                                    .currentIndex
+                                            ? _pokemonDetailController
+                                                .currentPokemon.name
+                                            : 'none' + count.toString(),
                                       ),
                                     ))
                           ],
