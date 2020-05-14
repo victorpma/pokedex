@@ -63,6 +63,75 @@ mixin _$PokemonDetailController on _PokemonDetailControllerBase, Store {
     }, _$currentIndexAtom, name: '${_$currentIndexAtom.name}_set');
   }
 
+  final _$progressAtom = Atom(name: '_PokemonDetailControllerBase.progress');
+
+  @override
+  double get progress {
+    _$progressAtom.context.enforceReadPolicy(_$progressAtom);
+    _$progressAtom.reportObserved();
+    return super.progress;
+  }
+
+  @override
+  set progress(double value) {
+    _$progressAtom.context.conditionallyRunInAction(() {
+      super.progress = value;
+      _$progressAtom.reportChanged();
+    }, _$progressAtom, name: '${_$progressAtom.name}_set');
+  }
+
+  final _$multipleAtom = Atom(name: '_PokemonDetailControllerBase.multiple');
+
+  @override
+  double get multiple {
+    _$multipleAtom.context.enforceReadPolicy(_$multipleAtom);
+    _$multipleAtom.reportObserved();
+    return super.multiple;
+  }
+
+  @override
+  set multiple(double value) {
+    _$multipleAtom.context.conditionallyRunInAction(() {
+      super.multiple = value;
+      _$multipleAtom.reportChanged();
+    }, _$multipleAtom, name: '${_$multipleAtom.name}_set');
+  }
+
+  final _$opacityAtom = Atom(name: '_PokemonDetailControllerBase.opacity');
+
+  @override
+  double get opacity {
+    _$opacityAtom.context.enforceReadPolicy(_$opacityAtom);
+    _$opacityAtom.reportObserved();
+    return super.opacity;
+  }
+
+  @override
+  set opacity(double value) {
+    _$opacityAtom.context.conditionallyRunInAction(() {
+      super.opacity = value;
+      _$opacityAtom.reportChanged();
+    }, _$opacityAtom, name: '${_$opacityAtom.name}_set');
+  }
+
+  final _$opacityTitleAtom =
+      Atom(name: '_PokemonDetailControllerBase.opacityTitle');
+
+  @override
+  double get opacityTitle {
+    _$opacityTitleAtom.context.enforceReadPolicy(_$opacityTitleAtom);
+    _$opacityTitleAtom.reportObserved();
+    return super.opacityTitle;
+  }
+
+  @override
+  set opacityTitle(double value) {
+    _$opacityTitleAtom.context.conditionallyRunInAction(() {
+      super.opacityTitle = value;
+      _$opacityTitleAtom.reportChanged();
+    }, _$opacityTitleAtom, name: '${_$opacityTitleAtom.name}_set');
+  }
+
   final _$_PokemonDetailControllerBaseActionController =
       ActionController(name: '_PokemonDetailControllerBase');
 
@@ -100,9 +169,53 @@ mixin _$PokemonDetailController on _PokemonDetailControllerBase, Store {
   }
 
   @override
+  dynamic setProgress(double newProgress) {
+    final _$actionInfo =
+        _$_PokemonDetailControllerBaseActionController.startAction();
+    try {
+      return super.setProgress(newProgress);
+    } finally {
+      _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setMultiple(double newMultiple) {
+    final _$actionInfo =
+        _$_PokemonDetailControllerBaseActionController.startAction();
+    try {
+      return super.setMultiple(newMultiple);
+    } finally {
+      _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setOpacity(double newOpacity) {
+    final _$actionInfo =
+        _$_PokemonDetailControllerBaseActionController.startAction();
+    try {
+      return super.setOpacity(newOpacity);
+    } finally {
+      _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setOpacityTitle(double newOpacityTitle) {
+    final _$actionInfo =
+        _$_PokemonDetailControllerBaseActionController.startAction();
+    try {
+      return super.setOpacityTitle(newOpacityTitle);
+    } finally {
+      _$_PokemonDetailControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'currentPokemon: ${currentPokemon.toString()},currentColor: ${currentColor.toString()},currentIndex: ${currentIndex.toString()}';
+        'currentPokemon: ${currentPokemon.toString()},currentColor: ${currentColor.toString()},currentIndex: ${currentIndex.toString()},progress: ${progress.toString()},multiple: ${multiple.toString()},opacity: ${opacity.toString()},opacityTitle: ${opacityTitle.toString()}';
     return '{$string}';
   }
 }
