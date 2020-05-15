@@ -4,15 +4,18 @@ import 'package:get_it/get_it.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
 
 class TypesWidget extends StatelessWidget {
-  final pokemonDetailController = GetIt.instance<PokemonDetailController>();
+  final List<String> types;
+
+  const TypesWidget({Key key, this.types}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
-
+    final pokemonDetailController = GetIt.instance<PokemonDetailController>();
+    final heightScreen = MediaQuery.of(context).size.height;
     final widthScreen = MediaQuery.of(context).size.width;
 
-    pokemonDetailController.currentPokemon.type.forEach((type) {
+    types.forEach((type) {
       widgets.add(Padding(
           padding: EdgeInsets.only(right: 10),
           child: Container(
@@ -33,34 +36,22 @@ class TypesWidget extends StatelessWidget {
     });
 
     return Positioned(
-        top: 10,
+        top: heightScreen * 0.18,
         left: 20,
         right: 20,
         child: Observer(
           builder: (context) => Container(
               width: widthScreen,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(pokemonDetailController.currentPokemon.name,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 34,
-                              fontFamily: 'Google')),
-                      Text('#' + pokemonDetailController.currentPokemon.num,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
-                              fontFamily: 'Google'))
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(children: widgets)
+                  Row(children: widgets),
+                  Text('#' + pokemonDetailController.currentPokemon.num,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          fontFamily: 'Google'))
                 ],
               )),
         ));

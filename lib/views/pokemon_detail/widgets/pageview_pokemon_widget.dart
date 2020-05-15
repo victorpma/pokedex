@@ -36,7 +36,7 @@ class PageViewPokemonWidget extends StatelessWidget {
                     ? 1000
                     : 90 - _pokemonDetailController.progress * 50),
             child: SizedBox(
-              height: (heightScreen * 0.7) - 300,
+              height: (heightScreen * 0.6) - 80,
               width: widthScreen,
               child: PageView.builder(
                   controller: pageController,
