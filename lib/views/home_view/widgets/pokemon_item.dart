@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/consts/consts_api.dart';
@@ -19,7 +21,13 @@ class PokemonItem extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
-            color: ConstsApp.getColorType(type: types[0]),
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  ConstsApp.getColorType(type: types[0]).withOpacity(0.8),
+                  ConstsApp.getColorType(type: types[0]),
+                ]),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Stack(
           children: <Widget>[

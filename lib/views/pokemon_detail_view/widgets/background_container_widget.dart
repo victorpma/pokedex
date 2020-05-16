@@ -10,7 +10,14 @@ class BackgroundContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return AnimatedContainer(
-          color: _pokemonDetailController.currentColor,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                _pokemonDetailController.currentColor.withOpacity(0.8),
+                _pokemonDetailController.currentColor
+              ])),
           duration: Duration(milliseconds: 300));
     });
   }

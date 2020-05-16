@@ -12,8 +12,8 @@ class NamePokemonWidget extends StatelessWidget {
 
     return Observer(
         builder: (context) => Positioned(
-            top:
-                (heightScreen * 0.10) - (pokemonDetailController.progress * 45),
+            top: (heightScreen * 0.10) -
+                (pokemonDetailController.progress * (heightScreen * 0.055)),
             left: 20 + (pokemonDetailController.progress * 30),
             child: Text(pokemonDetailController.currentPokemon.name,
                 style: TextStyle(

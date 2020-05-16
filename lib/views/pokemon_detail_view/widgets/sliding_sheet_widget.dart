@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
+import 'package:pokedex/views/about_view/about_view.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 class SlidingSheetWidget extends StatelessWidget {
@@ -24,14 +26,14 @@ class SlidingSheetWidget extends StatelessWidget {
       },
       snapSpec: const SnapSpec(
         snap: true,
-        snappings: [0.6, 0.9],
+        snappings: [0.6, 0.89],
         positioning: SnapPositioning.relativeToAvailableSpace,
       ),
-      builder: (context, state) {
-        return Container(
-          height: heightScreen,
-        );
-      },
+      builder: (context, state) => Container(
+        color: Colors.white,
+        height: heightScreen,
+        child: AboutView(),
+      ),
     );
   }
 }

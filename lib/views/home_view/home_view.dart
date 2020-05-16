@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/controllers/home_controller.dart';
-import 'package:pokedex/views/home/widgets/appbar_widget.dart';
-import 'package:pokedex/views/home/widgets/gridview_widget.dart';
+import 'package:pokedex/views/home_view/widgets/appbar_widget.dart';
+import 'package:pokedex/views/home_view/widgets/gridview_widget.dart';
 
 class HomeView extends StatefulWidget {
   final int index;
