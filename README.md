@@ -10,6 +10,7 @@
 
 - List of Pokemons;
 - View info of Pokemon;
+- View evolutions of Pokemon;
 
 ## :coffee: Getting Start
 
