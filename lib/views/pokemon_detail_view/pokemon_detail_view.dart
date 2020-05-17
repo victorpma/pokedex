@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pokedex/controllers/about_controller.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
 import 'package:pokedex/views/pokemon_detail_view/widgets/pageview_pokemon_widget.dart';
 import 'widgets/background_container_widget.dart';
@@ -18,12 +19,17 @@ class PokemonDetailView extends StatefulWidget {
 }
 
 PokemonDetailController _pokemonDetailController;
+AboutController _aboutController;
 
 class _PokemonDetailViewState extends State<PokemonDetailView> {
   @override
   void initState() {
     super.initState();
     _pokemonDetailController = GetIt.instance<PokemonDetailController>();
+    _aboutController = GetIt.instance<AboutController>();
+
+    _aboutController
+        .setCurrentSpecie(_pokemonDetailController.currentPokemon.name);
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/consts/consts_api.dart';
 import 'package:pokedex/consts/consts_app.dart';
+import 'package:pokedex/controllers/about_controller.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -15,6 +16,7 @@ class PageViewPokemonWidget extends StatelessWidget {
   PageViewPokemonWidget(this.initialPage);
   final homeController = GetIt.instance<HomeController>();
   final _pokemonDetailController = GetIt.instance<PokemonDetailController>();
+  final _aboutController = GetIt.instance<AboutController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,8 @@ class PageViewPokemonWidget extends StatelessWidget {
                     _pokemonDetailController.setCurrentPokemon(
                         homeController.pokeApi.pokemons[index]);
                     _pokemonDetailController.setCurrentIndex(index);
+                    _aboutController.setCurrentSpecie(
+                        _pokemonDetailController.currentPokemon.name);
                   },
                   itemBuilder: (context, int count) {
                     var pokemonItem = homeController.pokeApi.pokemons[count];

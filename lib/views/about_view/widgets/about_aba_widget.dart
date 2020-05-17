@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pokedex/controllers/about_controller.dart';
+import 'package:pokedex/controllers/pokemon_detail_controller.dart';
+
+class AboutAba extends StatelessWidget {
+  final PokemonDetailController _pokemonDetailController =
+      GetIt.instance<PokemonDetailController>();
+  final AboutController _aboutController = GetIt.instance<AboutController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.white,
+        child: Padding(
+            padding: EdgeInsets.only(top: 30, left: 30, right: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Observer(
+                  builder: (context) => _aboutController.currentSpecie == null
+                      ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(
+                                _pokemonDetailController.currentColor),
+                          )))
+                      : Text(
+                          _aboutController.currentSpecie.flavorTextEntries
+                              .where((element) => element.language.name == 'en')
+                              .first
+                              .flavorText
+                              .trim(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Google',
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0, 1.0),
+                            blurRadius: 3.0)
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Altura",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Google',
+                                  fontSize: 16)),
+                          SizedBox(height: 10),
+                          Observer(
+                            builder: (context) => Text(
+                                _pokemonDetailController.currentPokemon.height,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Google',
+                                    fontSize: 16)),
+                          )
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Largura",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Google',
+                                  fontSize: 16)),
+                          SizedBox(height: 10),
+                          Observer(
+                            builder: (context) => Text(
+                                _pokemonDetailController.currentPokemon.weight,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Google',
+                                    fontSize: 16)),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )));
+  }
+}

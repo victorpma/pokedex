@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:md2_tab_indicator/md2_tab_indicator.dart';
+import 'package:pokedex/controllers/about_controller.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
+import 'package:pokedex/views/about_view/widgets/about_aba_widget.dart';
 
 class AboutView extends StatefulWidget {
   @override
@@ -24,38 +26,47 @@ class _AboutViewState extends State<AboutView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0.0,
-            bottom: PreferredSize(
-                preferredSize: Size.fromHeight(10),
-                child: Observer(builder: (context) {
-                  return TabBar(
-                    controller: _tabController,
-                    labelStyle: TextStyle(fontWeight: FontWeight.w700),
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: _pokemonDetailController.currentColor,
-                    unselectedLabelColor: Color(0xff5f6368),
-                    isScrollable: true,
-                    indicator: MD2Indicator(
-                        //it begins here
-                        indicatorHeight: 3,
-                        indicatorColor: _pokemonDetailController.currentColor,
-                        indicatorSize: MD2IndicatorSize
-                            .normal //3 different modes tiny-normal-full
-                        ),
-                    tabs: <Widget>[
-                      Tab(
-                        text: "Sobre",
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          bottom: PreferredSize(
+              preferredSize: Size.fromHeight(10),
+              child: Observer(builder: (context) {
+                return TabBar(
+                  controller: _tabController,
+                  labelStyle: TextStyle(fontWeight: FontWeight.w700),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelColor: _pokemonDetailController.currentColor,
+                  unselectedLabelColor: Color(0xff5f6368),
+                  isScrollable: true,
+                  indicator: MD2Indicator(
+                      //it begins here
+                      indicatorHeight: 3,
+                      indicatorColor: _pokemonDetailController.currentColor,
+                      indicatorSize: MD2IndicatorSize
+                          .normal //3 different modes tiny-normal-full
                       ),
-                      Tab(
-                        text: "Evolução",
-                      ),
-                      Tab(
-                        text: "Status",
-                      )
-                    ],
-                  );
-                }))));
+                  tabs: <Widget>[
+                    Tab(
+                      text: "Sobre",
+                    ),
+                    Tab(
+                      text: "Evolução",
+                    ),
+                    Tab(
+                      text: "Status",
+                    )
+                  ],
+                );
+              }))),
+      body: PageView(
+        onPageChanged: (index) {},
+        children: <Widget>[
+          AboutAba(),
+          Container(color: Colors.yellow),
+          Container(color: Colors.blue),
+        ],
+      ),
+    );
   }
 }
