@@ -5,6 +5,7 @@ import 'package:md2_tab_indicator/md2_tab_indicator.dart';
 import 'package:pokedex/controllers/about_controller.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
 import 'package:pokedex/views/about_view/widgets/about_aba_widget.dart';
+import 'package:pokedex/views/about_view/widgets/evolution_aba_widget.dart';
 
 class AboutView extends StatefulWidget {
   @override
@@ -14,12 +15,14 @@ class AboutView extends StatefulWidget {
 class _AboutViewState extends State<AboutView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  PageController _pageController;
   PokemonDetailController _pokemonDetailController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(initialIndex: 0, length: 3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
+    _pageController = PageController(initialPage: 0);
     _pokemonDetailController = GetIt.instance<PokemonDetailController>();
   }
 
@@ -46,6 +49,11 @@ class _AboutViewState extends State<AboutView>
                       indicatorSize: MD2IndicatorSize
                           .normal //3 different modes tiny-normal-full
                       ),
+                  onTap: (index) {
+                    _pageController.animateToPage(index,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.bounceInOut);
+                  },
                   tabs: <Widget>[
                     Tab(
                       text: "Sobre",
@@ -60,10 +68,14 @@ class _AboutViewState extends State<AboutView>
                 );
               }))),
       body: PageView(
-        onPageChanged: (index) {},
+        onPageChanged: (index) {
+          _tabController.animateTo(index,
+              duration: Duration(milliseconds: 300));
+        },
+        controller: _pageController,
         children: <Widget>[
           AboutAba(),
-          Container(color: Colors.yellow),
+          EvolutionAba(),
           Container(color: Colors.blue),
         ],
       ),

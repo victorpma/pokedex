@@ -18,6 +18,16 @@ class AboutAba extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text(
+                  "Descrição",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Google',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(height: 10),
                 Observer(
                   builder: (context) => _aboutController.currentSpecie == null
                       ? SizedBox(
@@ -43,6 +53,16 @@ class AboutAba extends StatelessWidget {
                         ),
                 ),
                 SizedBox(height: 20),
+                Text(
+                  "Biologia",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Google',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(height: 10),
                 Container(
                   height: 70,
                   decoration: BoxDecoration(
@@ -72,7 +92,8 @@ class AboutAba extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Google',
-                                    fontSize: 16)),
+                                    fontSize: 16),
+                                textAlign: TextAlign.center),
                           )
                         ],
                       ),
@@ -91,7 +112,8 @@ class AboutAba extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Google',
-                                    fontSize: 16)),
+                                    fontSize: 16),
+                                textAlign: TextAlign.center),
                           )
                         ],
                       ),

@@ -33,14 +33,18 @@ class PageViewPokemonWidget extends StatelessWidget {
       builder: (context) => Opacity(
         opacity: _pokemonDetailController.opacity,
         child: Padding(
-            padding: EdgeInsets.only(
-                top: _pokemonDetailController.opacityTitle == 1
-                    ? 1000
-                    : 90 - _pokemonDetailController.progress * 50),
-            child: SizedBox(
-              height: (heightScreen * 0.6) - 80,
-              width: widthScreen,
+          padding: EdgeInsets.only(
+              top: _pokemonDetailController.opacityTitle == 1
+                  ? 1000
+                  : 90 - _pokemonDetailController.progress * 60),
+          child: Container(
+            height: 250,
+            // color: Colors.red,
+            width: widthScreen,
+            child: Padding(
+              padding: EdgeInsets.only(top: 100),
               child: PageView.builder(
+                  physics: BouncingScrollPhysics(),
                   controller: pageController,
                   itemCount: homeController.pokeApi.pokemons.length,
                   onPageChanged: (index) {
@@ -83,40 +87,38 @@ class PageViewPokemonWidget extends StatelessWidget {
                           },
                         ),
                         Observer(
-                            builder: (context) => AnimatedPadding(
-                                  duration: Duration(milliseconds: 250),
-                                  padding: EdgeInsets.all(count ==
+                          builder: (context) => AnimatedPadding(
+                            duration: Duration(milliseconds: 250),
+                            padding: EdgeInsets.all(
+                                count == _pokemonDetailController.currentIndex
+                                    ? 0
+                                    : 60),
+                            curve: Curves.bounceInOut,
+                            child: Hero(
+                              child: CachedNetworkImage(
+                                  height: 250,
+                                  width: 250,
+                                  placeholder: (context, url) =>
+                                      new Container(color: Colors.transparent),
+                                  color: count ==
                                           _pokemonDetailController.currentIndex
-                                      ? 0
-                                      : 60),
-                                  curve: Curves.bounceInOut,
-                                  child: Hero(
-                                    child: CachedNetworkImage(
-                                        height: 250,
-                                        width: 250,
-                                        placeholder: (context, url) =>
-                                            new Container(
-                                                color: Colors.transparent),
-                                        color: count ==
-                                                _pokemonDetailController
-                                                    .currentIndex
-                                            ? null
-                                            : Colors.black.withOpacity(0.2),
-                                        imageUrl: sprintf(
-                                            ConstsApi.urlPokeImage,
-                                            [pokemonItem.num])),
-                                    tag: count ==
-                                            _pokemonDetailController
-                                                .currentIndex
-                                        ? _pokemonDetailController
-                                            .currentPokemon.name
-                                        : 'none' + count.toString(),
-                                  ),
-                                )),
+                                      ? null
+                                      : Colors.black.withOpacity(0.2),
+                                  imageUrl: sprintf(ConstsApi.urlPokeImage,
+                                      [pokemonItem.num])),
+                              tag: count ==
+                                      _pokemonDetailController.currentIndex
+                                  ? _pokemonDetailController.currentPokemon.name
+                                  : 'none' + count.toString(),
+                            ),
+                          ),
+                        ),
                       ],
                     );
                   }),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }
