@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:md2_tab_indicator/md2_tab_indicator.dart';
-import 'package:pokedex/controllers/about_controller.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pokedex/controllers/pokemon_detail_controller.dart';
 import 'package:pokedex/views/about_view/widgets/about_aba_widget.dart';
 import 'package:pokedex/views/about_view/widgets/evolution_aba_widget.dart';
+import 'package:pokedex/views/about_view/widgets/stats_aba_widget.dart';
 
 class AboutView extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _AboutViewState extends State<AboutView>
   TabController _tabController;
   PageController _pageController;
   PokemonDetailController _pokemonDetailController;
+  ReactionDisposer _disposer;
 
   @override
   void initState() {
@@ -24,6 +26,20 @@ class _AboutViewState extends State<AboutView>
     _tabController = TabController(length: 3, vsync: this);
     _pageController = PageController(initialPage: 0);
     _pokemonDetailController = GetIt.instance<PokemonDetailController>();
+
+    _disposer = reaction(
+        (f) => _pokemonDetailController.currentPokemon,
+        (r) => () {
+              _pageController.animateToPage(0,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut);
+            });
+  }
+
+  @override
+  void dispose() {
+    _disposer();
+    super.dispose();
   }
 
   @override
@@ -52,7 +68,7 @@ class _AboutViewState extends State<AboutView>
                   onTap: (index) {
                     _pageController.animateToPage(index,
                         duration: Duration(milliseconds: 300),
-                        curve: Curves.bounceInOut);
+                        curve: Curves.easeInOut);
                   },
                   tabs: <Widget>[
                     Tab(
@@ -76,7 +92,7 @@ class _AboutViewState extends State<AboutView>
         children: <Widget>[
           AboutAba(),
           EvolutionAba(),
-          Container(color: Colors.blue),
+          StatesAba(),
         ],
       ),
     );

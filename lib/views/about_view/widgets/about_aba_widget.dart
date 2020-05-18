@@ -23,7 +23,7 @@ class AboutAba extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Google',
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.justify,
                 ),
@@ -47,7 +47,7 @@ class AboutAba extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Google',
-                            fontSize: 14,
+                            fontSize: 16,
                           ),
                           textAlign: TextAlign.justify,
                         ),
@@ -58,7 +58,7 @@ class AboutAba extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Google',
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.justify,
                 ),
