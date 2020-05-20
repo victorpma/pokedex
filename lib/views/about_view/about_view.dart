@@ -72,13 +72,13 @@ class _AboutViewState extends State<AboutView>
                   },
                   tabs: <Widget>[
                     Tab(
-                      text: "Sobre",
+                      text: "About",
                     ),
                     Tab(
-                      text: "Evolução",
+                      text: "Evolution",
                     ),
                     Tab(
-                      text: "Status",
+                      text: "Base Stats",
                     )
                   ],
                 );

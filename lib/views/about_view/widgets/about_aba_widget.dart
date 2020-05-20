@@ -20,7 +20,7 @@ class AboutAba extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Descrição",
+                  "Description",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Google',
@@ -60,7 +60,7 @@ class AboutAba extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Biologia",
+                  "Biology",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Google',
@@ -86,7 +86,7 @@ class AboutAba extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Altura",
+                          Text("Height",
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontFamily: 'Google',
@@ -106,7 +106,7 @@ class AboutAba extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Largura",
+                          Text("Width",
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontFamily: 'Google',
