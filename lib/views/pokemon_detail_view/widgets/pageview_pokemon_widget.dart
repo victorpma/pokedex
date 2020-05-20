@@ -26,7 +26,6 @@ class PageViewPokemonWidget extends StatelessWidget {
       ..add(DefaultAnimationProperties.rotation, Tween(begin: 0.0, end: 6.0),
           Duration(seconds: 5), Curves.linear);
 
-    final double heightScreen = MediaQuery.of(context).size.height;
     final double widthScreen = MediaQuery.of(context).size.width;
 
     return Observer(
@@ -52,6 +51,8 @@ class PageViewPokemonWidget extends StatelessWidget {
                         homeController.pokeApi.pokemons[index]);
                     _pokemonDetailController.setCurrentIndex(index);
                     _aboutController.setCurrentSpecie(
+                        _pokemonDetailController.currentPokemon.name);
+                    _aboutController.setInfoPokemon(
                         _pokemonDetailController.currentPokemon.name);
                   },
                   itemBuilder: (context, int count) {

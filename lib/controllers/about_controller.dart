@@ -26,6 +26,8 @@ abstract class _AboutControllerBase with Store {
 
   @action
   setInfoPokemon(String namePokemon) async {
-    pokeApiV2 = await pokemonRepository.getInfoPokemon(namePokemon);
+    pokeApiV2 = null;
+    pokeApiV2 =
+        await pokemonRepository.getInfoPokemon(namePokemon.toLowerCase());
   }
 }

@@ -12,6 +12,7 @@ class AboutAba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Padding(
             padding: EdgeInsets.only(top: 30, left: 30, right: 30),
@@ -30,14 +31,19 @@ class AboutAba extends StatelessWidget {
                 SizedBox(height: 10),
                 Observer(
                   builder: (context) => _aboutController.currentSpecie == null
-                      ? SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Center(
-                              child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(
-                                _pokemonDetailController.currentColor),
-                          )))
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+                                      _pokemonDetailController.currentColor),
+                                ))),
+                          ],
+                        )
                       : Text(
                           _aboutController.currentSpecie.flavorTextEntries
                               .where((element) => element.language.name == 'en')

@@ -26,6 +26,23 @@ mixin _$AboutController on _AboutControllerBase, Store {
     }, _$currentSpecieAtom, name: '${_$currentSpecieAtom.name}_set');
   }
 
+  final _$pokeApiV2Atom = Atom(name: '_AboutControllerBase.pokeApiV2');
+
+  @override
+  PokeApiV2 get pokeApiV2 {
+    _$pokeApiV2Atom.context.enforceReadPolicy(_$pokeApiV2Atom);
+    _$pokeApiV2Atom.reportObserved();
+    return super.pokeApiV2;
+  }
+
+  @override
+  set pokeApiV2(PokeApiV2 value) {
+    _$pokeApiV2Atom.context.conditionallyRunInAction(() {
+      super.pokeApiV2 = value;
+      _$pokeApiV2Atom.reportChanged();
+    }, _$pokeApiV2Atom, name: '${_$pokeApiV2Atom.name}_set');
+  }
+
   final _$setCurrentSpecieAsyncAction = AsyncAction('setCurrentSpecie');
 
   @override
@@ -34,9 +51,18 @@ mixin _$AboutController on _AboutControllerBase, Store {
         .run(() => super.setCurrentSpecie(namePokemon));
   }
 
+  final _$setInfoPokemonAsyncAction = AsyncAction('setInfoPokemon');
+
+  @override
+  Future setInfoPokemon(String namePokemon) {
+    return _$setInfoPokemonAsyncAction
+        .run(() => super.setInfoPokemon(namePokemon));
+  }
+
   @override
   String toString() {
-    final string = 'currentSpecie: ${currentSpecie.toString()}';
+    final string =
+        'currentSpecie: ${currentSpecie.toString()},pokeApiV2: ${pokeApiV2.toString()}';
     return '{$string}';
   }
 }

@@ -10,16 +10,17 @@ class NamePokemonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
 
-    return Observer(
-        builder: (context) => Positioned(
-            top: (heightScreen * 0.10) -
-                (pokemonDetailController.progress * (heightScreen * 0.055)),
-            left: 20 + (pokemonDetailController.progress * 30),
-            child: Text(pokemonDetailController.currentPokemon.name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 34 - (pokemonDetailController.progress * 10),
-                    fontFamily: 'Google'))));
+    return Observer(builder: (context) {
+      return Positioned(
+          top: (heightScreen * 0.10) -
+              (pokemonDetailController.progress * (heightScreen * 0.040)),
+          left: 20 + (pokemonDetailController.progress * 20),
+          child: Text(pokemonDetailController.currentPokemon.name,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 38 - (pokemonDetailController.progress * 14),
+                  fontFamily: 'Google')));
+    });
   }
 }

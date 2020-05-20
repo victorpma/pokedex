@@ -19,14 +19,14 @@ class SlidingSheetWidget extends StatelessWidget {
         _pokemonDetailController.setProgress(state.progress);
         _pokemonDetailController.setMultiple(1 -
             _pokemonDetailController.interval(
-                0.60, 0.87, _pokemonDetailController.progress));
+                0.60, 0.89, _pokemonDetailController.progress));
         _pokemonDetailController.setOpacity(_pokemonDetailController.multiple);
         _pokemonDetailController.setOpacityTitle(_pokemonDetailController
-            .interval(0.60, 0.87, _pokemonDetailController.progress));
+            .interval(0.60, 0.89, _pokemonDetailController.progress));
       },
       snapSpec: const SnapSpec(
         snap: true,
-        snappings: [0.60, 0.87],
+        snappings: [0.60, 0.89],
         positioning: SnapPositioning.relativeToAvailableSpace,
       ),
       builder: (context, state) => Container(

@@ -36,7 +36,7 @@ class TypesWidget extends StatelessWidget {
     });
 
     return Positioned(
-        top: heightScreen * 0.18,
+        top: heightScreen * 0.17,
         left: 20,
         right: 20,
         child: Observer(
