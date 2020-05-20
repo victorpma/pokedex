@@ -6,11 +6,15 @@
 
 <b>Pokedex</b> app built with Flutter.
 
+![Screenshot Pokedex](https://i.ibb.co/VDTy9MV/screenshots2.jpg)
+If you want see all screens of the app, they are [here](https://drive.google.com/open?id=1Pexb_zReU2zpBcs8HDBAUycbwUI0XNW6).
+
 ## :muscle: Functionalities
 
 - List of Pokemons;
 - View info of Pokemon;
-- View evolutions of Pokemon;
+- View evolution of Pokemon;
+- View stats of Pokemon.
 
 ## :coffee: Getting Start
 
@@ -42,6 +46,7 @@ Run the app in device(emulator/phone):</br>
 - [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
 - [sliding_sheet](https://pub.flutter-io.cn/packages/sliding_sheet)
 - [simple_animations](https://pub.flutter-io.cn/packages/simple_animations)
+- [md2_tab_indicator](https://pub.flutter-io.cn/packages/md2_tab_indicator)
 
 ## :metal: Credits
 
